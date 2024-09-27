@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Functions</h1>
+
+<input type="date" id="dob" oninput="checkDate()"> <!-- onchange -->
+
+
+<script>
+function checkDate() {
+	var dob = document.getElementById("dob").value;
+    
+  var dobIsValid = isValidFormat(dob);
+  if(dobIsValid) {
+  	var pastDate = dob.replace(/-/g, '');
+    var currentDate = getCurrentDate();
+    var yearsOld = getYearsOld(currentDate, pastDate);
+      if(yearsOld >= 18) {
+        alert("You are over 18 years old!");
+      } else {
+        alert("Sorry, your are under 18 years old!");
+      }
+  }
+}
+
+function isValidFormat(dob) {
+	let isValid = false;
+    if (dob.trim() === "" || isNaN(new Date(dob).getTime())) {
+      isValid = false;
+    } else {
+      isValid = true;
+    }
+    return isValid;
+}
+
+function getCurrentDate() {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  today = yyyy + mm + dd; /*today = mm + '/' + dd + '/' + yyyy;*/
+  return today;
+}
+
+function getYearsOld(currentDate, pastDate) {
+  var yearsOld = Math.floor( ( currentDate - pastDate ) * 0.0001 );
+  return yearsOld;
+}
+
+</script>
+
+</body>
+</html>
