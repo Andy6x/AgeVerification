@@ -1,53 +1,30 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  
+  <script type="text/JavaScript"> 
+    $(document).ready(function() {
+      const form = document.getElementById('form');
+      form.addEventListener("change",() => {
+          document.getElementById('submitBtn').disabled = !form.checkValidity()
+      });
+    });
+  </script>
+</head>
 <body>
-<h1>JavaScript Functions</h1>
 
-<input type="date" id="dob" oninput="checkDate()"> <!-- onchange -->
+<h2>HTML Forms</h2>
 
-
-<script>
-function checkDate() {
-	var dob = document.getElementById("dob").value;
-    
-  var dobIsValid = isValidFormat(dob);
-  if(dobIsValid) {
-  	var pastDate = dob.replace(/-/g, '');
-    var currentDate = getCurrentDate();
-    var yearsOld = getYearsOld(currentDate, pastDate);
-      if(yearsOld >= 18) {
-        alert("You are over 18 years old!");
-      } else {
-        alert("Sorry, your are under 18 years old!");
-      }
-  }
-}
-
-function isValidFormat(dob) {
-	let isValid = false;
-    if (dob.trim() === "" || isNaN(new Date(dob).getTime())) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-    return isValid;
-}
-
-function getCurrentDate() {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  today = yyyy + mm + dd; /*today = mm + '/' + dd + '/' + yyyy;*/
-  return today;
-}
-
-function getYearsOld(currentDate, pastDate) {
-  var yearsOld = Math.floor( ( currentDate - pastDate ) * 0.0001 );
-  return yearsOld;
-}
-
-</script>
+<form id="form">
+  <label id="uid" for="uid"><b>Username</b></label>
+  <input class="uid" id="input-uid" type="text" name="uid" maxlength="25" pattern="^(?=.*[a-zA-Z])(?=\w*[0-9])\w{8,25}$" title="Your username must be between 8 to 25 characters long and include at least one number" required><br>
+  
+  <label id="pwd" for="pwd"><b>Password</b></label>
+  <input id="input-pwd" type="password" name="pwd" maxlength="25" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[a-zA-Z0-9\S]{8,25}$" title="Your password must be between 8 to 25 characters long and include at least one lowercase letter, one uppercase letter, and one special character" required><br>
+  
+  <button id="submitBtn" disabled="disabled">Submit</button>
+</form> 
 
 </body>
 </html>
